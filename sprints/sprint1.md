@@ -3,6 +3,7 @@ Scrumlord: Alex
 ## Goal
 Become familiar with the platform, and create the initial framework for the product. 
 
+### Secondary
 * Learn C#
     - Explorartion of relevant libraries
         + SQL
@@ -14,4 +15,6 @@ Become familiar with the platform, and create the initial framework for the prod
 * Make test database
     - local one is good
 * Get kanban board set up
+
+
 
