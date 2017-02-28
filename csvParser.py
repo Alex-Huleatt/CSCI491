@@ -29,6 +29,7 @@ class CSV():
 			self.chunks.append(self.f.tell())
 		
 
+	#binary search
 	def findID(self, toFind):
 		lo, hi = 0, len(self.id_list)
 		mid = (lo+hi)//2
