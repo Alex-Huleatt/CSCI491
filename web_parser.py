@@ -3,7 +3,7 @@ import urllib
 import re
 import zipfile
 import os
-from os.path import join
+from os.path import join  # For convenience
 import shutil
 
 '''
@@ -67,7 +67,7 @@ def retrieve_csv_file(url):
                 to_dir = join('.', f)
                 os.rename(from_dir, to_dir)
                 fname = f
-    shutil.rmtree(week_dir)
+    shutil.rmtree(week_dir)  # delete temporary dir.
     return fname
 
 

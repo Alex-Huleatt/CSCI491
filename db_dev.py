@@ -1,15 +1,17 @@
 import MySQLdb
 
 
-db = MySQLdb.connect("localhost", "root", "4ebb9q1", "nppes_1")
+def init_cursor():
+    db = MySQLdb.connect("localhost", "root", "toor", "nppes_1")
+    cursor = db.cursor()
+    return cursor
 
-# prepare a cursor object using cursor() method
-cursor = db.cursor()
 
-# execute SQL query using execute() method.
-cursor.execute("SHOW TABLES")
+def update(cursor, new_rows):
+    cmd = 'INSERT INTO npi_organization_data asd' + \
+        ' VALUES %s ON DUPLICATE KEY UPDATE'
+    for row in new_rows:
+        cursor.execute(cmd % row)
 
-# Fetch a single row using fetchone() method.
-data = cursor.fetchall()
 
-print data
+print init_cursor()
