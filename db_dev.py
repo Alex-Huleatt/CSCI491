@@ -7,11 +7,12 @@ def init_cursor():
     return cursor
 
 
-def update(cursor, new_rows):
-    cmd = 'INSERT INTO npi_organization_data asd' + \
+def update(cursor, header, new_rows):
+    cmd = 'INSERT INTO npi_organization_data asdasd' + \
         ' VALUES %s ON DUPLICATE KEY UPDATE'
     for row in new_rows:
         cursor.execute(cmd % row)
 
 
-print init_cursor()
+if __name__ == '__main__':
+    print init_cursor()
