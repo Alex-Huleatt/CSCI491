@@ -2,7 +2,7 @@ import MySQLdb
 
 
 def init_cursor():
-    db = MySQLdb.connect("localhost", "root", "toor", "nppes_1")
+    db = MySQLdb.connect("localhost", "root", "root", "nppes_db")
     cursor = db.cursor()
     return cursor
 
