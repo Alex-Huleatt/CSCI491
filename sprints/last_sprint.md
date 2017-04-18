@@ -6,7 +6,7 @@ MVP (Minimum viable product)
 
 * Integrate with the database code
 * Testing
-** A lot of testing
+    * A lot of testing
 
 
 * Command line interface
