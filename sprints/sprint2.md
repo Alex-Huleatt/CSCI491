@@ -8,4 +8,4 @@ Need to successfully be able to manipulate the database from python and provide 
   * For Database
 * Make Test Database
 * Populate database with data from data files
-* 
+* Start Manipulating the Data
