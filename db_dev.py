@@ -7,9 +7,9 @@ def init_cursor():
     return cursor
 
 
-def updateRows(cursor, gener):
 
-    cmd = 'INSERT INTO npi_organization_data %s' + \
+def update(cursor, gener):
+    cmd = 'INSERT INTO master_table' + \
         ' VALUES %s ON DUPLICATE KEY UPDATE'
 
     for g in gener:

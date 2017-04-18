@@ -20,10 +20,10 @@
       <file leaf-file-name="db_dev.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/db_dev.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="17" lean-forward="true" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+            <state relative-caret-position="150">
+              <caret line="10" column="35" lean-forward="false" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
               <folding>
-                <marker date="1492526454000" expanded="true" signature="188:274" ph="INSERT INTO npi_organization_data... " />
+                <marker date="1492526565000" expanded="true" signature="188:261" ph="INSERT INTO master_table... " />
               </folding>
             </state>
           </provider>
@@ -369,7 +369,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1492526454000" expanded="true" signature="188:274" ph="INSERT INTO npi_organization_data... " />
+            <marker date="1492526565000" expanded="true" signature="188:261" ph="INSERT INTO master_table... " />
           </folding>
         </state>
       </provider>
@@ -420,10 +420,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/db_dev.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="17" lean-forward="true" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        <state relative-caret-position="150">
+          <caret line="10" column="35" lean-forward="false" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
           <folding>
-            <marker date="1492526454000" expanded="true" signature="188:274" ph="INSERT INTO npi_organization_data... " />
+            <marker date="1492526565000" expanded="true" signature="188:261" ph="INSERT INTO master_table... " />
           </folding>
         </state>
       </provider>
