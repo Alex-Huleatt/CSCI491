@@ -327,4 +327,4 @@ CREATE TABLE `master_data` (
   `Healthcare Provider Taxonomy Group_13`varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Healthcare Provider Taxonomy Group_14`varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Healthcare Provider Taxonomy Group_15`varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `DeactivationDate` datetime DEFAULT NULL,PRIMARY KEY (`NPI)
+  `DeactivationDate` datetime DEFAULT NULL,PRIMARY KEY (`NPI`)
