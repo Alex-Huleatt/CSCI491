@@ -8,7 +8,7 @@ def init_cursor():
 
 
 def update(cursor, new_rows):
-    cmd = 'INSERT INTO npi_organization_data asd' + \
+    cmd = 'INSERT INTO master_table' + \
         ' VALUES %s ON DUPLICATE KEY UPDATE'
     for row in new_rows:
         cursor.execute(cmd % row)
