@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de291ed9-e28e-4ca1-8b7e-f761b11e59fa" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nppes_schema" afterPath="$PROJECT_DIR$/nppes_schema" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db_dev.py" afterPath="$PROJECT_DIR$/db_dev.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,30 +17,22 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="db_dev.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="db_dev.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/db_dev.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="90">
+              <caret line="6" column="17" lean-forward="true" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+              <folding>
+                <marker date="1492526454000" expanded="true" signature="188:274" ph="INSERT INTO npi_organization_data... " />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fields.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fields.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="40" lean-forward="false" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="nppes_schema" pinned="false" current-in-tab="true">
+      <file leaf-file-name="nppes_schema" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nppes_schema">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
+            <state relative-caret-position="4875">
               <caret line="325" column="81" lean-forward="false" selection-start-line="325" selection-start-column="81" selection-end-line="325" selection-end-column="81" />
               <folding />
             </state>
@@ -55,9 +47,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/db_dev.py" />
         <option value="$PROJECT_DIR$/nppes_schema.sql" />
         <option value="$PROJECT_DIR$/nppes_schema" />
+        <option value="$PROJECT_DIR$/db_dev.py" />
       </list>
     </option>
   </component>
@@ -376,7 +368,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1492526454000" expanded="true" signature="188:274" ph="INSERT INTO npi_organization_data... " />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -392,22 +386,6 @@
     <entry file="file://$PROJECT_DIR$/cli.py" />
     <entry file="file://$PROJECT_DIR$/web_parser.py" />
     <entry file="file://$PROJECT_DIR$/dbsetup.md" />
-    <entry file="file://$PROJECT_DIR$/db_dev.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fields.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="40" lean-forward="false" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nppes_schema.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -426,9 +404,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nppes_schema">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
+        <state relative-caret-position="4875">
           <caret line="325" column="81" lean-forward="false" selection-start-line="325" selection-start-column="81" selection-end-line="325" selection-end-column="81" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fields.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="40" lean-forward="false" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db_dev.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="17" lean-forward="true" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+          <folding>
+            <marker date="1492526454000" expanded="true" signature="188:274" ph="INSERT INTO npi_organization_data... " />
+          </folding>
         </state>
       </provider>
     </entry>
