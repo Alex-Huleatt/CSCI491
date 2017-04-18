@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de291ed9-e28e-4ca1-8b7e-f761b11e59fa" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nppes_schema" afterPath="$PROJECT_DIR$/nppes_schema" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,8 +40,8 @@
       <file leaf-file-name="nppes_schema" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/nppes_schema">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="545">
-              <caret line="328" column="66" lean-forward="false" selection-start-line="328" selection-start-column="66" selection-end-line="328" selection-end-column="66" />
+            <state relative-caret-position="527">
+              <caret line="325" column="81" lean-forward="false" selection-start-line="325" selection-start-column="81" selection-end-line="325" selection-end-column="81" />
               <folding />
             </state>
           </provider>
@@ -427,8 +426,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nppes_schema">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
-          <caret line="328" column="66" lean-forward="false" selection-start-line="328" selection-start-column="66" selection-end-line="328" selection-end-column="66" />
+        <state relative-caret-position="527">
+          <caret line="325" column="81" lean-forward="false" selection-start-line="325" selection-start-column="81" selection-end-line="325" selection-end-column="81" />
           <folding />
         </state>
       </provider>
