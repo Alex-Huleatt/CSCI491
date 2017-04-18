@@ -17,6 +17,7 @@ class CSV():
         self._offset = 0
         self.id_list = []
         self._test_rows = []
+        self.num_lines = 0
 
     def __del__(self):
         self.f.close()  # make sure to close file on destruction of object.
@@ -45,10 +46,16 @@ class CSV():
             mid = (hi + lo) // 2
         return idx
 
+    def __iter__(self):
+        self.f.seek(0,0)
+        self.f.readline()
+        for k in self.f.readlines():
+            yield k.split(',')
+
     # using our chunks, query for some line.
     # makes querying rows O(1), instead of O(n) in the size of the csv.
     def get_row(self, n):
-        n -= 1
+
         chunk = n // line_chunk_size
         self.f.seek(self.chunks[chunk])
         for k in range(n % line_chunk_size):
@@ -62,8 +69,8 @@ class CSV():
         return self.f.readline()
 
     def populate_ids(self, i, line):
-        if i in test_rows:
-            self._test_rows.append((line))
+        # if i in test_rows:
+        #     self._test_rows.append((line))
         d = line[1:line.find(',') - 1]  # this will be the id number
         # associate an id with the row it occurs in.
         self.id_list.append((i, int(d)))
@@ -84,6 +91,7 @@ class CSV():
                     c(self, i - 1, line)
             line = self.f.readline()
             i += 1
+        self.num_lines = i
         if verbose:
             print self.fname + ':', 'Full pass over file complete.'
             print 'Calling:', str([k.__name__ for k in after_list])
@@ -98,24 +106,37 @@ class CSV():
             print 'Sorted ids for', self.fname
 
 
-full = CSV(sys.argv[1])
-full.full_pass([CSV.get_chunks, CSV.populate_ids], [CSV.sort_ids])
-# for i in range(len(test_rows)):
-# 	r = full.get_row(test_rows[i])
-# 	r2 = full.get_row_bad(test_rows[i])
-# print test_rows[i], 'get_row:', r[0:r.find(',')], 'Actual:',
-# r2[0:r2.find(',')]
-up = CSV(sys.argv[2])
+
+def loadHeaders(fname):
+    headers = open(fname).read().split(',')
+    return headers
+
+def matchWithHeaders(headers, csv):
+    
+    for l in csv:
+        ls = []
+        for j in range(len(headers)):
+            ls.append( (headers[j], l[j]) )
+        yield ls
+
+'''
+The function that people care about.
+Call this to grab a generator for lists with tuples of (column name, column value)
+
+'''
+def weeklyUpdateGenerator(fname):
+    csv = CSV(fname)
+    headers = loadHeaders('header.csv')
+    return matchWithHeaders(headers, csv)
+
+up = CSV(sys.argv[1])
 up.full_pass([CSV.get_chunks, CSV.populate_ids], [])
 no_find = []
 found = 0
-for k in up.id_list:
-    index = full.findID(k[1])
-    if index != -1:
-        r = full.get_row(index)
-        found += 1
-    else:
-        no_find.append(k[1])
+headers = loadHeaders('header.csv')
+print up.get_row(0)
+for k in matchWithHeaders(headers, up):
+    print k,'\n\n\n'
 
 print "Couldn't find:", no_find
 print 'Found %s out of %s' % (found, len(up.id_list))
