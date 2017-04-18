@@ -112,31 +112,32 @@ def loadHeaders(fname):
     return headers
 
 def matchWithHeaders(headers, csv):
-    
+    h = tuple(headers)
     for l in csv:
-        ls = []
-        for j in range(len(headers)):
-            ls.append( (headers[j], l[j]) )
-        yield ls
+        #ls = []
+        # for j in range(len(headers)):
+        #     ls.append( (headers[j], l[j]) )
+        yield (h, tuple(l))
 
 '''
 The function that people care about.
 Call this to grab a generator for lists with tuples of (column name, column value)
 
 '''
-def weeklyUpdateGenerator(fname):
+def get_generator(fname):
     csv = CSV(fname)
     headers = loadHeaders('header.csv')
     return matchWithHeaders(headers, csv)
 
-up = CSV(sys.argv[1])
-up.full_pass([CSV.get_chunks, CSV.populate_ids], [])
-no_find = []
-found = 0
-headers = loadHeaders('header.csv')
-print up.get_row(0)
-for k in matchWithHeaders(headers, up):
-    print k,'\n\n\n'
+if __name__ == '__main__':
+    up = CSV(sys.argv[1])
+    up.full_pass([CSV.get_chunks, CSV.populate_ids], [])
+    no_find = []
+    found = 0
+    headers = loadHeaders('header.csv')
+    print up.get_row(0)
+    for k in matchWithHeaders(headers, up):
+        print k,'\n\n\n'
 
-print "Couldn't find:", no_find
-print 'Found %s out of %s' % (found, len(up.id_list))
+    print "Couldn't find:", no_find
+    print 'Found %s out of %s' % (found, len(up.id_list))
