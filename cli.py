@@ -1,6 +1,7 @@
 import argparse
 import sys
-
+#from web_parser.py import *
+#from db_dev import *
 
 parser = argparse.ArgumentParser(
     description='NPPES database and file handler script.')
@@ -18,4 +19,5 @@ parser.add_argument('--deactivate', help='Run Deactivation File.')
 args = parser.parse_args()
 #write the file on stdout
 #ex: write(get_download_links) from web_parser.py
-#sys.stdout.write()
+#sys.stdout.write(get_download_links)
+print(parser)
