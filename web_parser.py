@@ -16,7 +16,12 @@ link_page = download_page + 'NPI_Files.html'
 This would be prone to change if the website ever changed.
 This would require modification to continue to function.
 '''
-zip_regex = join('.', '(NPPES_Data_Dissemination_' + '.*' + '_Weekly.zip)')
+zip_regex = join('.', '(NPPES_Data_Dissemination_' + '.*' + '_Weekly\.zip)')
+
+'''
+regex for weekly deactivation file
+'''
+deact_regex = 'NPPES_Deactivated_NPI_Report_.*\.zip'
 
 
 def get_download_links():
@@ -35,6 +40,25 @@ def get_download_links():
             weekly_links.append(download_page + m.groups()[0])
 
     return weekly_links
+
+
+def get_deact_links():
+    '''This returns all download links for weekly update files.'''
+    r = urllib.urlopen(link_page).read()
+    soup = BeautifulSoup(r, 'html.parser')
+    links = soup.find_all('a', href=True)
+
+    pattern = re.compile(deact_regex)
+
+    deact_links = []
+    for l in links:
+        path = l['href']
+        m = pattern.match(path)
+        if m:
+            deact_links.append(download_page + m.groups()[0])
+
+    return deact_links
+
 
 
 '''
@@ -68,6 +92,8 @@ def retrieve_csv_file(url):
                 os.rename(from_dir, to_dir)
                 fname = f
     shutil.rmtree(week_dir)  # delete temporary dir.
+    
+    assert os.path.isfile(fname), 'Expected file %s' % fname
     return fname
 
 

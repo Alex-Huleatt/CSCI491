@@ -5,9 +5,6 @@ verbose = True
 
 line_chunk_size = 2**10
 
-test_rows = [0, 1, 2] + range(1020, 1030)
-
-
 class CSV():
 
     def __init__(self, fname):
@@ -50,7 +47,7 @@ class CSV():
         self.f.seek(0,0)
         self.f.readline()
         for k in self.f.readlines():
-            yield k.split(',')
+            yield k.replace('\n', '').replace('"','').split(',')
 
     # using our chunks, query for some line.
     # makes querying rows O(1), instead of O(n) in the size of the csv.
@@ -105,29 +102,9 @@ class CSV():
         if verbose:
             print 'Sorted ids for', self.fname
 
-
-
 def loadHeaders(fname):
-    headers = open(fname).read().split(',')
+    headers = open(fname).read().replace('"','').replace('\n','').split(',')
     return headers
-
-def matchWithHeaders(headers, csv):
-    h = tuple(headers)
-    for l in csv:
-        #ls = []
-        # for j in range(len(headers)):
-        #     ls.append( (headers[j], l[j]) )
-        yield (h, tuple(l))
-
-'''
-The function that people care about.
-Call this to grab a generator for lists with tuples of (column name, column value)
-
-'''
-def get_generator(fname):
-    csv = CSV(fname)
-    headers = loadHeaders('header.csv')
-    return matchWithHeaders(headers, csv)
 
 if __name__ == '__main__':
     up = CSV(sys.argv[1])
@@ -136,8 +113,6 @@ if __name__ == '__main__':
     found = 0
     headers = loadHeaders('header.csv')
     print up.get_row(0)
-    for k in matchWithHeaders(headers, up):
-        print k,'\n\n\n'
 
     print "Couldn't find:", no_find
     print 'Found %s out of %s' % (found, len(up.id_list))

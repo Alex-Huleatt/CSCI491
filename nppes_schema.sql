@@ -70,36 +70,52 @@ DROP TABLE IF EXISTS `npi_provider_data`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `npi_provider_data` (
   `NPI` int(10) unsigned NOT NULL,
-  `ProviderLastName` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ProviderFirstName` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ProviderNamePrefix` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ProviderNameSuffix` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ProviderCredentialText` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Name` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
+  `OtherName` varchar(70) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `OtherNameTypeCode` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `FirstLineMailingAddress` varchar(55) COLLATE utf8_unicode_ci DEFAULT NULL,
   `SecondLineMailingAddress` varchar(55) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `MailingAddressCity` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `MailingAddressState` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MailingAddressCity` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `MailingAddressState` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `MailingAddressPostalCode` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `MailingAddressCountryCode` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
   `MailingAddressTelephone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `MailingAddressFax` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `FirstLinePracticeAddress` varchar(55) COLLATE utf8_unicode_ci DEFAULT NULL,
   `SecondLinePracticeAddress` varchar(55) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `PracticeAddressCity` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PracticeAddressCity` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PracticeAddressState` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `PracticeAddressPostalCode` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `PracticeAddressCountryCode` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
   `PracticeAddressTelephone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `PracticeAddressFaxNumber` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PracticeAddressFax` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `AuthorizedOfficialLastName` varchar(35) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `AuthorizedOfficialFirstName` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `AuthorizedOfficialTitle` varchar(35) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `AuthorizedOfficialCredential` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `AuthorizedOfficialTelephone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `TaxonomyCode1` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `LicenseNumber1` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `LicenseStateCode1` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
   `TaxonomySwitch1` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `IsSoleProprietor` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `IsOrganizationSubpart` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `DeactivationDate` datetime DEFAULT NULL,
   PRIMARY KEY (`NPI`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
+
+
+DROP TABLE IF EXISTS `used_files`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `used_files` (
+  `file_name` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`file_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
