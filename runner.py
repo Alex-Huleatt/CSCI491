@@ -51,6 +51,7 @@ def main():
     curs = db.init_cursor()
     print 'update db'
     db.update(curs, col_name_map, headers, up)
+    db.completed_update(csv_name)
     curs.close()
 
 if __name__ == '__main__':
