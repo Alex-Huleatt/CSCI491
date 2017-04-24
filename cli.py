@@ -1,5 +1,4 @@
 import argparse
-import sys
 
 parser = argparse.ArgumentParser(
     description='NPPES database and file handler script.')
@@ -24,3 +23,6 @@ args = parser.parse_args()
 #ex: write(get_download_links) from web_parser.py
 #sys.stdout.write(get_download_links)
 print(parser)
+
+
+

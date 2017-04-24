@@ -18,7 +18,7 @@ This would require modification to continue to function.
 '''
 zip_regex = join('.','(NPPES_Data_Dissemination_' + '.*' + '_Weekly\.zip)')
 
-monthly_regex = 'NPPES_Data_Dissemination_\w*_\d*\.zip'
+monthly_regex = join('.', 'NPPES_Data_Dissemination_\w*_\d*\.zip')
 deactiv_regex = join('.','(NPPES_Deactivated_NPI_Report_\d+\.zip)')
 
 def get_download_links(reg=zip_regex):
@@ -53,7 +53,7 @@ Should match *only* the update csv file.
 csv_regex = 'npidata_[\\d_\-]*\\.csv'
 xslx_regex = '.*\.xlsx'
 
-def retrieve_csv_file(url, reg=csv_regex):
+def retrieve_file(url, reg=csv_regex):
     '''
     This function downloads, upzips, and grabs the desired csv file.
     Theile is placed at the working directory and the filename is returned.
@@ -66,7 +66,6 @@ def retrieve_csv_file(url, reg=csv_regex):
     zip_ref.close()
     os.remove('week.zip')
     p = re.compile(reg)
-    print reg
     fname = ''
     for _, _, files in os.walk(week_dir):
         for f in files:

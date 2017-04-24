@@ -1,4 +1,7 @@
 import MySQLdb, datetime
+import web_parser as wp
+import csvParser as csv
+import xlsx_parser as xlsx
 
 cursor = None
 
@@ -46,6 +49,7 @@ def init_cursor():
     return cursor
 org = 'npi_organization_data'
 prv = 'npi_provider_data'
+
 def update(headers, gener):
     cmd = 'REPLACE INTO %s \n(%s)\n VALUES(%s);'
     
@@ -65,6 +69,7 @@ def update(headers, gener):
             cursor.execute(toExec)
         except Exception as e:
             print e
+            raise e
 
 
 def parseRow(head_map, headers, row):
@@ -81,21 +86,14 @@ def parseRow(head_map, headers, row):
     return ret
 
 def update_deactivation(d_list):
-    cmd = '''UPDATE %s, %s
-    SET %s.DeactivationDate=%s,%s.DeactivationDate=%s
-    WHERE %s.NPI = %s, %s.NPI = %s
-    '''
+    
+    cmd = "UPDATE %s SET %s.DeactivationDate=%s WHERE %s.NPI=%s;"
     for k in d_list:
         npi,dt = k[0],k[1]
         datetime.datetime.strptime(dt,'%m/%d/%Y')
-        cursor.execute(cmd % (org, prv, org, npi, prv, npi, org, prv))
+        cursor.execute(cmd % (prv, prv, dt, prv, npi))
+        cursor.execute(cmd % (org, org, dt, org, npi))
 
-
-def _NPI_exists(npi):
-    sqlq = "SELECT COUNT(1) FROM settings WHERE NPI = '%s'" % npi
-    cursor.execute(sqlq)
-    if cursor.fetchone()[0]:
-        return True
 
 def completed_update(fname):
     try:
@@ -112,14 +110,44 @@ def close():
     global cursor
     cursor.close()
 
+
+
 def _test():
     from csvParser import CSV2, loadHeaders
     init()
     test_csv = CSV2('testcsv.csv')
     h = loadHeaders('header.csv')
     update(h, test_csv)
-    for k in test_csv:
-        assert _NPI_exists(k[0])
-
     close()
+
+def weekly_update():
+    dl_links = wp.get_download_links()
+    toUse = dl_links #db.filterFiles(dl_links)
+    print '%s new update files.' % len(toUse)
+    for f in toUse:
+        print 'retrieve csv %s...' % f
+        csv_name = wp.retrieve_file(f)
+        print 'parse csv...'
+        up = csv.CSV2(csv_name)
+        print 'load headers...'
+        headers = csv.loadHeaders('header.csv')
+        print 'update db...'
+        update(headers, up)
+        completed_update(f)
+
+def deactiv_update():
+    link = wp.get_download_links(reg=wp.deactiv_regex)[0]
+    if len(filterFiles([link]))==0:
+        print 'no new'
+        return
+    print 'retrieve xlsx %s...' % link
+    name = wp.retrieve_file(link, reg=wp.xslx_regex)
+    print 'parse xlsx...'
+    up = xlsx.readxlsx(name)
+    print 'update db...'
+    update_deactivation(up)
+    completed_update(link)
+
+def full_db():
+    pass
 
