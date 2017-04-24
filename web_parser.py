@@ -18,7 +18,7 @@ This would require modification to continue to function.
 '''
 zip_regex = join('.','(NPPES_Data_Dissemination_' + '.*' + '_Weekly\.zip)')
 
-monthly_regex = join('.', 'NPPES_Data_Dissemination_\w*_\d*\.zip')
+monthly_regex = join('.', '(NPPES_Data_Dissemination_\w*_\d*\.zip)')
 deactiv_regex = join('.','(NPPES_Deactivated_NPI_Report_\d+\.zip)')
 
 def get_download_links(reg=zip_regex):

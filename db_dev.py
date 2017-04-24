@@ -2,6 +2,7 @@ import MySQLdb, datetime
 import web_parser as wp
 import csvParser as csv
 import xlsx_parser as xlsx
+import re
 
 cursor = None
 
@@ -122,15 +123,15 @@ def _test():
 
 def weekly_update():
     dl_links = wp.get_download_links()
-    toUse = dl_links #db.filterFiles(dl_links)
+    toUse = filterFiles(dl_links)
     print '%s new update files.' % len(toUse)
+    print 'load headers...'
+    headers = csv.loadHeaders('header.csv')
     for f in toUse:
         print 'retrieve csv %s...' % f
         csv_name = wp.retrieve_file(f)
         print 'parse csv...'
         up = csv.CSV2(csv_name)
-        print 'load headers...'
-        headers = csv.loadHeaders('header.csv')
         print 'update db...'
         update(headers, up)
         completed_update(f)
@@ -148,6 +149,41 @@ def deactiv_update():
     update_deactivation(up)
     completed_update(link)
 
+'''execute arbitrary sql file'''
+'''taken from: http://stackoverflow.com/questions/4408714/execute-sql-file-with-python-mysqldb'''
+def exec_sql_file(sql_file):
+    print "\n[INFO] Executing SQL script file: '%s'" % (sql_file)
+    statement = ""
+
+    for line in open(sql_file):
+        if re.match(r'--', line):  # ignore sql comment lines
+            continue
+        if not re.search(r'[^-;]+;', line):  # keep appending lines that don't end in ';'
+            statement = statement + line
+        else:  # when you get a line ending in ';' then exec statement and reset for next statement
+            statement = statement + line
+            #print "\n\n[DEBUG] Executing SQL statement:\n%s" % (statement)
+            try:
+                cursor.execute(statement)
+            except Exception as e:
+                print "\n[WARN] MySQLError during execute statement \n\tArgs: '%s'" % (str(e.args))
+
+            statement = ""
+
+def db_reset():
+    print 'reset db'
+    exec_sql_file('nppes_schema.sql')
+
 def full_db():
-    pass
+    
+    print 'get download link'
+    link = wp.get_download_links(reg=wp.monthly_regex)[0]
+    print 'download monthly.'
+    csv_name = wp.retrieve_file(link)
+    up = csv.CSV2(csv_name)
+    print 'load headers...'
+    headers = csv.loadHeaders('header.csv')
+    update(headers, up)
+
+
 

@@ -1,18 +1,34 @@
+import csv
+
 class CSV2():
     def __init__(self, fname):
         self.fname = fname
-        self.f = open(fname)
-
-    def __del__(self):
-        self.f.close()
+        self.f = csv.reader(open(fname), delimiter=',')
 
     def __iter__(self):
         skip = True
-        for k in self.f.readlines():
+        for k in self.f:
             if skip:
-                skip=False
+                skip = False
                 continue
-            yield k.replace('\n', '').replace('"','').split(',')
+            yield k
+
+
+# class CSV2():
+#     def __init__(self, fname):
+#         self.fname = fname
+#         self.f = open(fname)
+
+#     def __del__(self):
+#         self.f.close()
+
+#     def __iter__(self):
+#         skip = True
+#         for k in self.f.readlines():
+#             if skip:
+#                 skip=False
+#                 continue
+#             yield k.replace('\n', '').replace('"','').split(',')
 
 def loadHeaders(fname):
     headers = open(fname).read().replace('"','').replace('\n','').split(',')
