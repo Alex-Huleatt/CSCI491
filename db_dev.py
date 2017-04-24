@@ -1,12 +1,18 @@
 import MySQLdb, datetime
 
+cursor = None
+
+def init():
+    global cursor
+    cursor = init_cursor()
+
 def init_cursor():
     db = MySQLdb.connect("localhost", "root", "toor", "nppes_1")
     db.autocommit(True)
     cursor = db.cursor()
     return cursor
 
-def update(cursor, head_map, headers, gener):
+def update(head_map, headers, gener):
     cmd = 'REPLACE INTO %s \n(%s)\n VALUES(%s);'
     org = 'npi_organization_data'
     prv = 'npi_provider_data'
@@ -17,10 +23,10 @@ def update(cursor, head_map, headers, gener):
             keys, vals = '', ''
             val_f = '"%s",'
             for k,v in prsed.iteritems():
-                keys += k + ', '
+                keys += k + ','
                 vals += val_f % v
-            keys = keys[:-2]
-            vals = vals[:-1] 
+            keys = keys[:-1] # cut off extra comma
+            vals = vals[:-1] # cut off extra comma
             table = org if g[1]!='1' else prv
             toExec = cmd % (table, keys, vals) 
             cursor.execute(toExec)
@@ -30,11 +36,8 @@ def update(cursor, head_map, headers, gener):
 
 def parseRow(head_map, headers, row):
     ret = {}
-    #print headers, '\n', row
-    #print len(headers), len(row)
     for k in range(len(headers)):
         if headers[k] in head_map:
-            #print headers[k], row[k]
             if head_map[headers[k]] == 'DeactivationDate':
                 if row[k] == '':
                     continue
@@ -42,16 +45,23 @@ def parseRow(head_map, headers, row):
                     ret[head_map[headers[k]]] = datetime.datetime.strptime(row[k],'%m/%d/%Y')
             else:
                 ret[head_map[headers[k]]] = row[k]
-                #print headers[k], ':', row[k]
-
     return ret
 
-def completed_update(cursor, fname):
+def completed_update(fname):
     try:
-        cursor.execute('INSERT INTO used_files (file_name) VALUES %s' % fname)
+        cursor.execute("INSERT INTO used_files (file_name) VALUES('%s');" % fname)
     except Exception as e:
         print e
 
+def filterFiles(ls):
+    cursor.execute('SELECT * FROM used_files')
+    res = [r[0] for r in cursor.fetchall()]
+    return filter(lambda x:x not in res, ls)
+
+def close():
+    global cursor
+    cursor.close()
 
 if __name__ == '__main__':
-    print init_cursor()
+    init()
+    filterFiles([])

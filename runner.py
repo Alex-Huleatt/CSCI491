@@ -1,5 +1,3 @@
-
-
 import web_parser
 import csvParser
 import db_dev as db
@@ -39,20 +37,26 @@ col_name_map = {'Provider License Number_1': 'LicenseNumber1',
 
 
 def main():
-    print 'Get dl links'
+    print 'initialize database connection...'
+    db.init()
+    print 'get download links...'
     dl_links = web_parser.get_download_links()
-    print 'Retrieve csv'
-    csv_name = web_parser.retrieve_csv_file(dl_links[0])
-    print 'parse csv'
-    up = csvParser.CSV(csv_name)
-    print 'load headers'
-    headers = csvParser.loadHeaders('header.csv')
-    print 'connect to db'
-    curs = db.init_cursor()
-    print 'update db'
-    db.update(curs, col_name_map, headers, up)
-    db.completed_update(csv_name)
-    curs.close()
+    toUse = db.filterFiles(dl_links)
+    print '%s new update files.' % len(toUse)
+    for f in toUse:
+        print 'retrieve csv %s...' % f
+        csv_name = web_parser.retrieve_csv_file(f)
+        print 'parse csv...'
+        up = csvParser.CSV2(csv_name)
+        print 'load headers...'
+        headers = csvParser.loadHeaders('header.csv')
+        print 'update db...'
+        db.update(col_name_map, headers, up)
+        db.completed_update(f)
+    print 'closing connection...'
+    db.close()
+    print 'exit'
+    
 
 if __name__ == '__main__':
     main()
