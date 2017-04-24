@@ -2,7 +2,7 @@ import argparse
 import sys
 
 parser = argparse.ArgumentParser(
-    description='NPPES database and file handler script.')
+    description=' **AUTOCROSS** - a NPPES Database and File Handler Script')
 
 sp = parser.add_subparsers()
 
