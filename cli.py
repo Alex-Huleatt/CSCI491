@@ -1,7 +1,5 @@
 import argparse
 import sys
-#from web_parser.py import *
-#from db_dev import *
 
 parser = argparse.ArgumentParser(
     description='NPPES database and file handler script.')
