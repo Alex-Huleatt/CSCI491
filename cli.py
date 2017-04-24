@@ -9,11 +9,15 @@ parser.add_argument(
 #Option for Verbose mode
 parser.add_argument('--v', help='Verbose mode',
                     action='store_true', default=False)
-#Add Option for Days till Update
-parser.add_argument('--u', type=float, help='Set days till update.', default=7.0)
+#Add Option for Downloading full data
+parser.add_argument('--df', type=float, help='Download full data', default=7.0)
+#Add Option to Manually download and apply the weekly file
+parser.add_argument('--dw', help='Manually download and Apply weekly file')
+#Add Option to Import the full data set into Database Schema
+parser.add_argument('--i', help='Import into Database Schema', action='store_true', default=True)
+#Add Option to Manually download and apply the deactivation file
+parser.add_argument('--dd', type=float, help='Download full data', default=7.0)
 
-#Add Option to Run Deactivation File
-parser.add_argument('--d', help='Run Deactivation File.')
 #Setting args to the arguments to Run
 args = parser.parse_args()
 #write the file on stdout
