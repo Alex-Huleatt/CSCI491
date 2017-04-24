@@ -18,5 +18,16 @@ def loadHeaders(fname):
     headers = open(fname).read().replace('"','').replace('\n','').split(',')
     return headers
 
-if __name__ == '__main__':
-    pass
+def _test():
+    head = loadHeaders('header.csv')
+    assert len(head)== 329, 'Unexpected number of columns in header.csv'
+
+    test = CSV2('testcsv.csv')
+    i = 0
+    for k in test:
+        i += 1
+    assert i == 99, 'Unexpected number of lines read in testcsv %s' % i
+
+
+
+
