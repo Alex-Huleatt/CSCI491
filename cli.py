@@ -12,9 +12,10 @@ parser.add_argument(
 parser.add_argument('--v', help='Verbose mode',
                     action='store_true', default=False)
 #Add Option for Days till Update
-parser.add_argument('--update', type=float, help='Set days till update.', default=7.0)
+parser.add_argument('--u', type=float, help='Set days till update.', default=7.0)
+
 #Add Option to Run Deactivation File
-parser.add_argument('--deactivate', help='Run Deactivation File.')
+parser.add_argument('--d', help='Run Deactivation File.')
 #Setting args to the arguments to Run
 args = parser.parse_args()
 #write the file on stdout
