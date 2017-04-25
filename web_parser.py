@@ -78,6 +78,3 @@ def retrieve_file(url, reg=csv_regex):
     
     assert os.path.isfile(fname), 'Expected file %s' % fname #pragma: no cover
     return fname
-
-def _test():
-    get_download_links()

@@ -3,9 +3,13 @@ import web_parser as wp
 import csvParser as csv
 import xlsx_parser as xlsx
 import re
+import os
 
 cursor = None
 
+'''
+This, horrible, map exchanges column names between the csv, and the database
+'''
 head_map = {'Provider License Number_1': 'LicenseNumber1',
                 'Provider Organization Name (Legal Business Name)': 'Name',
                 'Is Organization Subpart': 'IsOrganizationSubpart',
@@ -68,9 +72,8 @@ def update(headers, gener):
             table = org if g[1]!='1' else prv
             toExec = cmd % (table, keys, vals) 
             cursor.execute(toExec)
-        except Exception as e:
-            print e
-            raise e
+        except Exception as e: #pragma: no cover
+            print e #ignore errors on update.
 
 
 def parseRow(head_map, headers, row):
@@ -97,10 +100,7 @@ def update_deactivation(d_list):
 
 
 def completed_update(fname):
-    try:
-        cursor.execute("INSERT INTO used_files (file_name) VALUES('%s');" % fname)
-    except Exception as e:
-        print e
+    cursor.execute("INSERT INTO used_files (file_name) VALUES('%s');" % fname)
 
 def filterFiles(ls):
     cursor.execute('SELECT * FROM used_files')
@@ -111,43 +111,44 @@ def close():
     global cursor
     cursor.close()
 
-
-
-def _test():
-    from csvParser import CSV2, loadHeaders
-    init()
-    test_csv = CSV2('testcsv.csv')
-    h = loadHeaders('header.csv')
-    update(h, test_csv)
-    close()
-
 def weekly_update():
-    dl_links = wp.get_download_links()
-    toUse = filterFiles(dl_links)
-    print '%s new update files.' % len(toUse)
-    print 'load headers...'
-    headers = csv.loadHeaders('header.csv')
-    for f in toUse:
-        print 'retrieve csv %s...' % f
-        csv_name = wp.retrieve_file(f)
-        print 'parse csv...'
-        up = csv.CSV2(csv_name)
-        print 'update db...'
-        update(headers, up)
-        completed_update(f)
+    files = []
+    try:
+        dl_links = wp.get_download_links()
+        toUse = filterFiles(dl_links)
+        print '%s new update files.' % len(toUse)
+        print 'load headers...'
+        headers = csv.loadHeaders('header.csv')
+
+        for f in toUse:
+            print 'retrieve csv %s...' % f
+            csv_name = wp.retrieve_file(f)
+            files.append(csv_name)
+            print 'parse csv...'
+            up = csv.CSV2(csv_name)
+            print 'update db...'
+            update(headers, up)
+            completed_update(f)
+    finally:
+        for f in files:
+            os.remove(f)
 
 def deactiv_update():
-    link = wp.get_download_links(reg=wp.deactiv_regex)[0]
-    if len(filterFiles([link]))==0:
-        print 'no new'
-        return
-    print 'retrieve xlsx %s...' % link
-    name = wp.retrieve_file(link, reg=wp.xslx_regex)
-    print 'parse xlsx...'
-    up = xlsx.readxlsx(name)
-    print 'update db...'
-    update_deactivation(up)
-    completed_update(link)
+    name = ''
+    try:
+        link = wp.get_download_links(reg=wp.deactiv_regex)[0]
+        if len(filterFiles([link]))==0: #pragma: no cover
+            print 'no new'
+            return
+        print 'retrieve xlsx %s...' % link
+        name = wp.retrieve_file(link, reg=wp.xslx_regex)
+        print 'parse xlsx...'
+        up = xlsx.readxlsx(name)
+        print 'update db...'
+        update_deactivation(up)
+        completed_update(link)
+    finally:
+        os.remove(name)
 
 '''execute arbitrary sql file'''
 '''taken from: http://stackoverflow.com/questions/4408714/execute-sql-file-with-python-mysqldb'''
@@ -165,7 +166,7 @@ def exec_sql_file(sql_file):
             #print "\n\n[DEBUG] Executing SQL statement:\n%s" % (statement)
             try:
                 cursor.execute(statement)
-            except Exception as e:
+            except Exception as e: #pragma: no cover
                 print "\n[WARN] MySQLError during execute statement \n\tArgs: '%s'" % (str(e.args))
 
             statement = ""
@@ -174,16 +175,20 @@ def db_reset():
     print 'reset db'
     exec_sql_file('nppes_schema.sql')
 
-def full_db():
-    
+def full_db(): #pragma: no cover
     print 'get download link'
-    link = wp.get_download_links(reg=wp.monthly_regex)[0]
-    print 'download monthly.'
-    csv_name = wp.retrieve_file(link)
-    up = csv.CSV2(csv_name)
-    print 'load headers...'
-    headers = csv.loadHeaders('header.csv')
-    update(headers, up)
+    csv_name = ''
+    try:
+        link = wp.get_download_links(reg=wp.monthly_regex)[0]
+        print 'download monthly.'
+        csv_name = wp.retrieve_file(link)
+        up = csv.CSV2(csv_name)
+        print 'load headers...'
+        headers = csv.loadHeaders('header.csv')
+        update(headers, up)
+    finally:
+        if csv_name != '':
+            os.remove(csv_name)
 
 
 

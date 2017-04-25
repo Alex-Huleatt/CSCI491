@@ -1,7 +1,9 @@
 
-import web_parser, db_dev, csvParser, xlsx_parser
+import autocross as ac
+import db_dev as db
 
-db_dev._test()
-csvParser._test()
-web_parser._test()
-xlsx_parser._test()
+db.init()
+ac.clear_db(None)
+ac.auto(None)
+ac.deact(None)
+db.close()
